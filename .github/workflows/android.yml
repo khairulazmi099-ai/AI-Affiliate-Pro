@@ -51,5 +51,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: AI-Affiliate-Pro-APK
-          path: source/AI_Affiliate_Pro_V2/app/build/outputs/apk/debug/*.apk
+          path: source/AI_Affiliate_Pro_V2_Source/AI_Affiliate_Pro_V2/app/build/outputs/apk/debug/*.apk
           if-no-files-found: error
