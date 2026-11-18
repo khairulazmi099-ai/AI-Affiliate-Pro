@@ -22,7 +22,7 @@ jobs:
       - name: Extract project
         run: |
           unzip AI_Affiliate_Pro_V2_Source.zip -d source
-          echo "PROJECT_DIR=source/AI_Affiliate_Pro_V2" >> $GITHUB_ENV
+          echo "PROJECT_DIR=source/AI_Affiliate_Pro_V2_Source/AI_Affiliate_Pro_V2" >> $GITHUB_ENV
 
       - name: Set up Java
         uses: actions/setup-java@v5
