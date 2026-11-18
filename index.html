@@ -1,0 +1,878 @@
+
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta name="theme-color" content="#101713">
+<title>AI Affiliate Pro 2.3 Premium</title>
+
+<style>
+*{box-sizing:border-box}
+:root{
+ --bg:#0c110f;
+ --panel:#151e19;
+ --panel2:#1b2821;
+ --green:#20c997;
+ --green2:#087f5b;
+ --white:#f3f7f4;
+ --muted:#9aaba1;
+ --line:#2b3b32;
+}
+body{
+ margin:0;background:var(--bg);color:var(--white);
+ font-family:Arial,sans-serif;padding:16px 14px 90px;
+}
+.app{max-width:650px;margin:auto}
+.header{
+ display:flex;align-items:center;justify-content:space-between;
+ padding:12px 2px 22px;
+}
+.logo{font-size:20px;font-weight:900;letter-spacing:.5px}
+.logo span{color:var(--green)}
+.version{font-size:10px;color:var(--green);margin-top:5px}
+.lang{
+ background:var(--panel2);color:white;border:1px solid var(--line);
+ padding:9px;border-radius:10px;max-width:125px
+}
+.welcome{
+ background:linear-gradient(135deg,#183c2d,#10231b);
+ border:1px solid #285b43;border-radius:20px;
+ padding:20px;margin-bottom:18px;
+}
+.welcome small{color:#a6d9bd}
+.welcome h2{font-size:23px;margin:9px 0}
+.welcome p{font-size:13px;color:#c4d9cc;line-height:1.5}
+.stats{
+ display:grid;grid-template-columns:1fr 1fr;gap:10px;
+ margin-bottom:18px
+}
+.stat{
+ background:var(--panel);border:1px solid var(--line);
+ padding:14px;border-radius:15px
+}
+.stat strong{display:block;font-size:20px;color:var(--green)}
+.stat span{font-size:11px;color:var(--muted)}
+.card{
+ background:var(--panel);border:1px solid var(--line);
+ border-radius:17px;padding:16px;margin-bottom:15px
+}
+.card h3{font-size:16px;margin:0 0 5px}
+.sub{font-size:12px;color:var(--muted);margin-bottom:15px}
+label{
+ display:block;font-size:12px;color:#c4d0c8;
+ margin:13px 0 7px
+}
+input,textarea,select{
+ width:100%;padding:13px;border-radius:10px;
+ border:1px solid var(--line);background:#0d1511;
+ color:white;font-size:14px;outline:none
+}
+textarea{min-height:85px;resize:vertical}
+input:focus,textarea:focus,select:focus{border-color:var(--green)}
+button{
+ border:0;border-radius:11px;padding:13px 15px;
+ background:var(--green);color:#07150f;
+ font-size:13px;font-weight:bold;cursor:pointer
+}
+button:active{opacity:.8}
+.primary{width:100%;margin-top:14px}
+.secondary{
+ background:#26372d;color:#e6f4eb;
+ border:1px solid #3b5144
+}
+.danger{background:#572b32;color:#fff}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.platforms,.styles{
+ display:flex;flex-wrap:wrap;gap:8px;margin-top:12px
+}
+.choice{
+ background:#202d25;color:#dce8df;border:1px solid var(--line);
+ border-radius:20px;padding:9px 12px;font-size:12px;
+}
+.choice.active{background:#174d37;color:#8ff0c3;border-color:var(--green)}
+.info{
+ background:#10291e;border:1px solid #285b43;
+ border-radius:12px;padding:12px;color:#b9e8ce;
+ font-size:12px;line-height:1.5;margin-top:12px
+}
+.result{
+ background:#0d1511;border:1px solid var(--line);
+ border-radius:12px;padding:14px;margin-top:12px;
+ white-space:pre-wrap;overflow-wrap:anywhere;
+ line-height:1.55;font-size:13px
+}
+.result button{margin-top:12px}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.actions button{flex:1}
+.nav{
+ position:fixed;bottom:0;left:0;right:0;
+ background:#111a15;border-top:1px solid var(--line);
+ display:flex;justify-content:center;gap:24px;
+ padding:12px 5px;z-index:10
+}
+.nav span{font-size:11px;color:var(--muted);text-align:center}
+.nav b{display:block;color:var(--green);font-size:17px;margin-bottom:3px}
+.history-item{
+ padding:12px 0;border-bottom:1px solid var(--line);
+ display:flex;justify-content:space-between;align-items:center;gap:8px
+}
+.small{font-size:11px;color:var(--muted)}
+.hidden{display:none}
+</style>
+</head>
+
+<body>
+<div class="app">
+
+<header class="header">
+ <div>
+  <div class="logo">AI <span>AFFILIATE</span> PRO</div>
+  <div class="version">PREMIUM EDITION • VERSION 2.3</div>
+ </div>
+ <select class="lang" id="language" onchange="changeLanguage()">
+  <option value="ms">🇲🇾 Melayu</option>
+  <option value="en">🇬🇧 English</option>
+  <option value="id">🇮🇩 Indonesia</option>
+  <option value="zh">🇨🇳 中文</option>
+  <option value="th">🇹🇭 ไทย</option>
+  <option value="ar">🇸🇦 العربية</option>
+  <option value="vi">🇻🇳 Tiếng Việt</option>
+ </select>
+</header>
+
+<section class="welcome">
+ <small id="welcomeTag">SMART AFFILIATE WORKSPACE</small>
+ <h2 id="welcomeTitle">Selamat Datang!</h2>
+ <p id="welcomeText">Urus produk, analisis maklumat dan hasilkan kandungan affiliate dalam satu aplikasi.</p>
+</section>
+
+<div class="stats">
+ <div class="stat">
+  <strong id="productCount">0</strong>
+  <span id="statProducts">Produk disimpan</span>
+ </div>
+ <div class="stat">
+  <strong id="postCount">0</strong>
+  <span id="statPosts">Promosi dijana</span>
+ </div>
+</div>
+
+<section class="card">
+ <h3 id="analyzerTitle">01 · Product Analyzer</h3>
+ <div class="sub" id="analyzerSub">Masukkan pautan dan maklumat produk.</div>
+
+ <label id="linkLabel">Pautan Affiliate Shopee</label>
+ <input id="url" type="url" placeholder="https://s.shopee.com.my/...">
+
+ <button class="primary" onclick="analyzeProduct()" id="analyzeButton">
+  ✦ ANALISIS PRODUK
+ </button>
+
+ <div class="info" id="analyzeInfo">
+  Masukkan pautan dan tampal maklumat produk yang disalin daripada halaman Shopee jika diperlukan. Aplikasi akan cuba mengenal pasti butiran yang tersedia.
+ </div>
+
+ <label id="sourceLabel">Teks / Butiran Produk (pilihan)</label>
+ <textarea id="sourceText" placeholder="Tampal penerangan produk, spesifikasi atau maklumat daripada Shopee di sini..."></textarea>
+
+ <div class="grid2">
+  <div>
+   <label id="nameLabel">Nama Produk</label>
+   <input id="product" placeholder="Nama produk">
+  </div>
+  <div>
+   <label id="priceLabel">Harga</label>
+   <input id="price" placeholder="Contoh: RM600">
+  </div>
+ </div>
+
+ <label id="featuresLabel">Ciri-ciri Produk</label>
+ <textarea id="features" placeholder="Spesifikasi dan kelebihan produk"></textarea>
+
+ <label id="audienceLabel">Sasaran Pembeli</label>
+ <input id="audience" placeholder="Contoh: Pemilik kereta">
+</section>
+
+<section class="card">
+ <h3 id="generatorTitle">02 · Content Generator</h3>
+ <div class="sub" id="generatorSub">Pilih platform dan gaya promosi.</div>
+
+ <label id="platformLabel">Platform</label>
+ <div class="platforms">
+  <button class="choice active" data-platform="TikTok" onclick="togglePlatform(this)">TikTok</button>
+  <button class="choice" data-platform="Shopee" onclick="togglePlatform(this)">Shopee</button>
+  <button class="choice" data-platform="Threads" onclick="togglePlatform(this)">Threads</button>
+  <button class="choice" data-platform="Facebook" onclick="togglePlatform(this)">Facebook</button>
+ </div>
+
+ <label id="styleLabel">Gaya Promosi</label>
+ <select id="style">
+  <option value="Hook Ringkas">Hook Ringkas</option>
+  <option value="Hook Kejutan">Hook Kejutan</option>
+  <option value="Review Jujur">Review Jujur</option>
+  <option value="Bercerita">Bercerita</option>
+  <option value="POV">POV</option>
+  <option value="FOMO">FOMO / Urgent</option>
+  <option value="Tips Edukasi">Tips Edukasi</option>
+  <option value="Masalah-Penyelesaian">Masalah & Penyelesaian</option>
+ </select>
+
+ <div class="grid2">
+  <div>
+   <label id="countLabel">Bilangan variasi</label>
+   <select id="count">
+    <option value="3">3</option>
+    <option value="5" selected>5</option>
+    <option value="10">10</option>
+   </select>
+  </div>
+  <div>
+   <label id="promoLanguageLabel">Bahasa Promosi</label>
+   <select id="promoLanguage">
+    <option value="ms">Bahasa Melayu</option>
+    <option value="en">English</option>
+    <option value="id">Bahasa Indonesia</option>
+    <option value="zh">中文</option>
+    <option value="th">ไทย</option>
+    <option value="ar">العربية</option>
+    <option value="vi">Tiếng Việt</option>
+   </select>
+  </div>
+ </div>
+
+ <button class="primary" onclick="generate()" id="generateButton">
+  ✦ GENERATE PROMOTION
+ </button>
+</section>
+
+<section class="card">
+ <h3 id="resultsTitle">03 · Hasil Promosi</h3>
+ <div class="actions">
+  <button onclick="copyAll()" id="copyButton">SALIN SEMUA</button>
+  <button class="secondary" onclick="clearResults()" id="clearButton">KOSONGKAN</button>
+ </div>
+ <div id="results" class="small" style="margin-top:15px">
+  Hasil promosi akan dipaparkan di sini.
+ </div>
+</section>
+
+<section class="card">
+ <h3 id="managerTitle">04 · Affiliate Manager</h3>
+ <div class="sub" id="managerSub">Sejarah promosi yang telah dijana.</div>
+ <div id="history" class="small">Belum ada sejarah promosi.</div>
+ <button class="secondary primary" onclick="clearHistory()" id="deleteHistoryButton">PADAM SEJARAH</button>
+</section>
+
+<div class="small" style="text-align:center;padding:18px">
+ AI AFFILIATE PRO 2.3 PREMIUM<br>
+ Smart tools for affiliate creators
+</div>
+
+</div>
+
+<nav class="nav">
+ <span><b>⌂</b>Home</span>
+ <span><b>⌕</b>Analyze</span>
+ <span><b>✦</b>Create</span>
+ <span><b>▤</b>History</span>
+</nav>
+
+<!-- BAHAGIAN 2 AKAN DISAMBUNG DI BAWAH -->
+
+</body>
+</html>
+
+<script>
+const $ = id => document.getElementById(id);
+
+let currentOutput = "";
+let selectedPlatforms = ["TikTok"];
+let savedProducts = [];
+
+const translations = {
+ ms:{
+  welcome:"Selamat Datang!",tag:"RUANG KERJA AFFILIATE PINTAR",
+  welcomeText:"Urus produk, analisis maklumat dan hasilkan kandungan affiliate dalam satu aplikasi.",
+  products:"Produk disimpan",posts:"Promosi dijana",
+  analyzer:"01 · Product Analyzer",analyzerSub:"Masukkan pautan dan maklumat produk.",
+  link:"Pautan Affiliate Shopee",analyze:"✦ ANALISIS PRODUK",
+  info:"Masukkan pautan dan tampal maklumat produk yang disalin daripada halaman Shopee jika diperlukan. Aplikasi akan cuba mengenal pasti butiran yang tersedia.",
+  source:"Teks / Butiran Produk (pilihan)",name:"Nama Produk",price:"Harga",
+  features:"Ciri-ciri Produk",audience:"Sasaran Pembeli",
+  generator:"02 · Content Generator",generatorSub:"Pilih platform dan gaya promosi.",
+  platform:"Platform",style:"Gaya Promosi",count:"Bilangan variasi",
+  promoLanguage:"Bahasa Promosi",generate:"✦ JANA PROMOSI",
+  results:"03 · Hasil Promosi",copy:"SALIN SEMUA",clear:"KOSONGKAN",
+  manager:"04 · Affiliate Manager",managerSub:"Sejarah promosi yang telah dijana.",
+  deleteHistory:"PADAM SEJARAH",empty:"Belum ada sejarah promosi.",
+  emptyResult:"Hasil promosi akan dipaparkan di sini.",
+  noProduct:"Sila masukkan nama produk atau butiran produk.",
+  analyzed:"Analisis selesai. Sila semak maklumat sebelum menjana promosi.",
+  failed:"Maklumat tidak mencukupi. Sila isi maklumat produk secara manual.",
+  copied:"Berjaya disalin!",noResult:"Tiada hasil untuk disalin.",
+  noPlatform:"Sila pilih sekurang-kurangnya satu platform.",
+  audienceDefault:"Pembeli yang memerlukan produk ini",
+  linkLabel:"Pautan produk:"
+ },
+ en:{
+  welcome:"Welcome!",tag:"SMART AFFILIATE WORKSPACE",
+  welcomeText:"Manage products, analyze information and create affiliate content in one app.",
+  products:"Saved products",posts:"Promotions generated",
+  analyzer:"01 · Product Analyzer",analyzerSub:"Enter product link and information.",
+  link:"Shopee Affiliate Link",analyze:"✦ ANALYZE PRODUCT",
+  info:"Paste product details copied from the Shopee page if needed. The app will identify available information.",
+  source:"Product details (optional)",name:"Product Name",price:"Price",
+  features:"Product Features",audience:"Target Audience",
+  generator:"02 · Content Generator",generatorSub:"Choose platform and promotion style.",
+  platform:"Platform",style:"Promotion Style",count:"Number of variations",
+  promoLanguage:"Promotion Language",generate:"✦ GENERATE PROMOTION",
+  results:"03 · Promotion Results",copy:"COPY ALL",clear:"CLEAR",
+  manager:"04 · Affiliate Manager",managerSub:"Your generated promotion history.",
+  deleteHistory:"DELETE HISTORY",empty:"No promotion history yet.",
+  emptyResult:"Your promotions will appear here.",
+  noProduct:"Please enter a product name or details.",
+  analyzed:"Analysis completed. Review the information before generating.",
+  failed:"Not enough information. Please enter product details manually.",
+  copied:"Copied successfully!",noResult:"Nothing to copy.",
+  noPlatform:"Select at least one platform.",
+  audienceDefault:"People interested in this product",
+  linkLabel:"Product link:"
+ },
+ id:{
+  welcome:"Selamat Datang!",tag:"RUANG KERJA AFILIASI",
+  welcomeText:"Kelola produk dan buat konten afiliasi dalam satu aplikasi.",
+  products:"Produk tersimpan",posts:"Promosi dibuat",
+  analyzer:"01 · Analisis Produk",analyzerSub:"Masukkan tautan dan informasi produk.",
+  link:"Tautan Afiliasi Shopee",analyze:"✦ ANALISIS PRODUK",
+  info:"Tempel detail produk dari halaman Shopee jika diperlukan.",
+  source:"Detail produk (opsional)",name:"Nama Produk",price:"Harga",
+  features:"Fitur Produk",audience:"Target Pembeli",
+  generator:"02 · Pembuat Konten",generatorSub:"Pilih platform dan gaya promosi.",
+  platform:"Platform",style:"Gaya Promosi",count:"Jumlah variasi",
+  promoLanguage:"Bahasa Promosi",generate:"✦ BUAT PROMOSI",
+  results:"03 · Hasil Promosi",copy:"SALIN SEMUA",clear:"KOSONGKAN",
+  manager:"04 · Manajer Afiliasi",managerSub:"Riwayat promosi Anda.",
+  deleteHistory:"HAPUS RIWAYAT",empty:"Belum ada riwayat promosi.",
+  emptyResult:"Hasil promosi akan muncul di sini.",
+  noProduct:"Masukkan nama atau detail produk.",
+  analyzed:"Analisis selesai. Periksa informasi produk.",
+  failed:"Informasi belum cukup. Isi detail produk secara manual.",
+  copied:"Berhasil disalin!",noResult:"Tidak ada hasil untuk disalin.",
+  noPlatform:"Pilih minimal satu platform.",
+  audienceDefault:"Pembeli yang membutuhkan produk ini",
+  linkLabel:"Tautan produk:"
+ },
+ zh:{
+  welcome:"欢迎！",tag:"智能联盟营销工作区",
+  welcomeText:"在一个应用中管理产品并创建联盟营销内容。",
+  products:"已保存产品",posts:"已生成推广",
+  analyzer:"01 · 产品分析",analyzerSub:"输入产品链接和信息。",
+  link:"Shopee推广链接",analyze:"✦ 分析产品",
+  info:"如有需要，请粘贴从Shopee页面复制的产品资料。",
+  source:"产品详情（选填）",name:"产品名称",price:"价格",
+  features:"产品特点",audience:"目标买家",
+  generator:"02 · 内容生成器",generatorSub:"选择平台和推广风格。",
+  platform:"平台",style:"推广风格",count:"生成数量",
+  promoLanguage:"推广语言",generate:"✦ 生成推广",
+  results:"03 · 推广结果",copy:"复制全部",clear:"清空",
+  manager:"04 · 联盟管理",managerSub:"已生成的推广记录。",
+  deleteHistory:"删除记录",empty:"暂无推广记录。",
+  emptyResult:"推广内容将在此显示。",
+  noProduct:"请输入产品名称或详情。",
+  analyzed:"分析完成，请检查产品信息。",
+  failed:"信息不足，请手动填写。",
+  copied:"复制成功！",noResult:"没有可复制的内容。",
+  noPlatform:"请至少选择一个平台。",
+  audienceDefault:"对此产品感兴趣的买家",
+  linkLabel:"产品链接："
+ },
+ th:{
+  welcome:"ยินดีต้อนรับ!",tag:"พื้นที่ทำงานพันธมิตร",
+  welcomeText:"จัดการสินค้าและสร้างเนื้อหาโปรโมตในแอปเดียว",
+  products:"สินค้าที่บันทึก",posts:"โปรโมชั่นที่สร้าง",
+  analyzer:"01 · วิเคราะห์สินค้า",analyzerSub:"ใส่ลิงก์และข้อมูลสินค้า",
+  link:"ลิงก์ Shopee",analyze:"✦ วิเคราะห์สินค้า",
+  info:"วางรายละเอียดสินค้าที่คัดลอกจาก Shopee ได้",
+  source:"รายละเอียดสินค้า",name:"ชื่อสินค้า",price:"ราคา",
+  features:"คุณสมบัติสินค้า",audience:"กลุ่มเป้าหมาย",
+  generator:"02 · สร้างเนื้อหา",generatorSub:"เลือกแพลตฟอร์มและรูปแบบ",
+  platform:"แพลตฟอร์ม",style:"รูปแบบโปรโมต",count:"จำนวน",
+  promoLanguage:"ภาษาโปรโมต",generate:"✦ สร้างโปรโมชั่น",
+  results:"03 · ผลลัพธ์",copy:"คัดลอกทั้งหมด",clear:"ล้าง",
+  manager:"04 · จัดการพันธมิตร",managerSub:"ประวัติการโปรโมต",
+  deleteHistory:"ลบประวัติ",empty:"ยังไม่มีประวัติ",
+  emptyResult:"ผลลัพธ์จะแสดงที่นี่",
+  noProduct:"กรุณากรอกชื่อหรือรายละเอียดสินค้า",
+  analyzed:"วิเคราะห์เสร็จแล้ว กรุณาตรวจสอบข้อมูล",
+  failed:"ข้อมูลไม่เพียงพอ กรุณากรอกเอง",
+  copied:"คัดลอกแล้ว!",noResult:"ไม่มีข้อความให้คัดลอก",
+  noPlatform:"เลือกอย่างน้อยหนึ่งแพลตฟอร์ม",
+  audienceDefault:"ผู้ซื้อที่สนใจสินค้านี้",
+  linkLabel:"ลิงก์สินค้า:"
+ },
+ ar:{
+  welcome:"أهلاً وسهلاً!",tag:"مساحة التسويق بالعمولة",
+  welcomeText:"إدارة المنتجات وإنشاء محتوى تسويقي في تطبيق واحد.",
+  products:"المنتجات المحفوظة",posts:"العروض المنشأة",
+  analyzer:"01 · تحليل المنتج",analyzerSub:"أدخل رابط ومعلومات المنتج.",
+  link:"رابط Shopee",analyze:"✦ تحليل المنتج",
+  info:"الصق تفاصيل المنتج المنسوخة من صفحة Shopee عند الحاجة.",
+  source:"تفاصيل المنتج",name:"اسم المنتج",price:"السعر",
+  features:"مميزات المنتج",audience:"الجمهور المستهدف",
+  generator:"02 · إنشاء المحتوى",generatorSub:"اختر المنصة وأسلوب الإعلان.",
+  platform:"المنصة",style:"أسلوب الإعلان",count:"عدد النسخ",
+  promoLanguage:"لغة الإعلان",generate:"✦ إنشاء الإعلان",
+  results:"03 · النتائج",copy:"نسخ الكل",clear:"مسح",
+  manager:"04 · إدارة التسويق",managerSub:"سجل العروض المنشأة.",
+  deleteHistory:"حذف السجل",empty:"لا يوجد سجل بعد.",
+  emptyResult:"ستظهر النتائج هنا.",
+  noProduct:"أدخل اسم المنتج أو تفاصيله.",
+  analyzed:"اكتمل التحليل. راجع المعلومات.",
+  failed:"المعلومات غير كافية. أدخلها يدوياً.",
+  copied:"تم النسخ!",noResult:"لا يوجد نص للنسخ.",
+  noPlatform:"اختر منصة واحدة على الأقل.",
+  audienceDefault:"المشترون المهتمون بهذا المنتج",
+  linkLabel:"رابط المنتج:"
+ },
+ vi:{
+  welcome:"Chào mừng!",tag:"KHÔNG GIAN TIẾP THỊ LIÊN KẾT",
+  welcomeText:"Quản lý sản phẩm và tạo nội dung tiếp thị trong một ứng dụng.",
+  products:"Sản phẩm đã lưu",posts:"Bài quảng bá đã tạo",
+  analyzer:"01 · Phân tích sản phẩm",analyzerSub:"Nhập liên kết và thông tin sản phẩm.",
+  link:"Liên kết Shopee",analyze:"✦ PHÂN TÍCH SẢN PHẨM",
+  info:"Dán thông tin sản phẩm sao chép từ trang Shopee nếu cần.",
+  source:"Chi tiết sản phẩm",name:"Tên sản phẩm",price:"Giá",
+  features:"Đặc điểm sản phẩm",audience:"Khách hàng mục tiêu",
+  generator:"02 · Tạo nội dung",generatorSub:"Chọn nền tảng và phong cách.",
+  platform:"Nền tảng",style:"Phong cách quảng bá",count:"Số lượng",
+  promoLanguage:"Ngôn ngữ quảng bá",generate:"✦ TẠO QUẢNG BÁ",
+  results:"03 · Kết quả",copy:"SAO CHÉP TẤT CẢ",clear:"XÓA",
+  manager:"04 · Quản lý liên kết",managerSub:"Lịch sử nội dung đã tạo.",
+  deleteHistory:"XÓA LỊCH SỬ",empty:"Chưa có lịch sử.",
+  emptyResult:"Nội dung sẽ hiển thị tại đây.",
+  noProduct:"Vui lòng nhập tên hoặc chi tiết sản phẩm.",
+  analyzed:"Phân tích hoàn tất. Vui lòng kiểm tra thông tin.",
+  failed:"Chưa đủ thông tin. Vui lòng nhập thủ công.",
+  copied:"Đã sao chép!",noResult:"Không có nội dung để sao chép.",
+  noPlatform:"Vui lòng chọn ít nhất một nền tảng.",
+  audienceDefault:"Người mua quan tâm đến sản phẩm này",
+  linkLabel:"Liên kết sản phẩm:"
+ }
+};
+
+function changeLanguage(){
+ const lang = $("language").value;
+ localStorage.setItem("affiliateLanguage",lang);
+ const t = translations[lang] || translations.ms;
+ const ids = {
+  welcomeTitle:"welcome",welcomeTag:"tag",welcomeText:"welcomeText",
+  statProducts:"products",statPosts:"posts",
+  analyzerTitle:"analyzer",analyzerSub:"analyzerSub",
+  linkLabel:"link",analyzeButton:"analyze",analyzeInfo:"info",
+  sourceLabel:"source",nameLabel:"name",priceLabel:"price",
+  featuresLabel:"features",audienceLabel:"audience",
+  generatorTitle:"generator",generatorSub:"generatorSub",
+  platformLabel:"platform",styleLabel:"style",countLabel:"count",
+  promoLanguageLabel:"promoLanguage",generateButton:"generate",
+  resultsTitle:"results",copyButton:"copy",clearButton:"clear",
+  managerTitle:"manager",managerSub:"managerSub",
+  deleteHistoryButton:"deleteHistory"
+ };
+ Object.keys(ids).forEach(id=>{
+  if($(id)) $(id).textContent=t[ids[id]];
+ });
+ document.documentElement.lang=lang;
+ $("results").textContent=currentOutput || t.emptyResult;
+ renderHistory();
+}
+
+function togglePlatform(button){
+ const platform=button.dataset.platform;
+ if(selectedPlatforms.includes(platform)){
+  selectedPlatforms=selectedPlatforms.filter(p=>p!==platform);
+  button.classList.remove("active");
+ }else{
+  selectedPlatforms.push(platform);
+  button.classList.add("active");
+ }
+}
+
+function detectAudience(text){
+ const s=text.toLowerCase();
+ if(/kereta|android player|dashcam|car player|automotif|automotive/.test(s))
+  return "Pemilik kereta dan pengguna automotif";
+ if(/bayi|baby|lampin|stroller|susu/.test(s))
+  return "Ibu bapa dan penjaga bayi";
+ if(/wanita|skincare|serum|makeup|kosmetik/.test(s))
+  return "Pengguna produk kecantikan dan penjagaan diri";
+ if(/lelaki|grooming|trimmer|shaver/.test(s))
+  return "Lelaki yang mementingkan penjagaan diri";
+ if(/telefon|phone|mobile|charger|powerbank|earphone/.test(s))
+  return "Pengguna telefon pintar dan aksesori teknologi";
+ if(/dapur|masak|kitchen|periuk|blender/.test(s))
+  return "Pengguna rumah dan peminat memasak";
+ if(/tilam|almari|kerusi|sofa|rumah/.test(s))
+  return "Pemilik rumah dan keluarga";
+ if(/helmet|topi keledar|motosikal|motor/.test(s))
+  return "Penunggang motosikal";
+ return "Pembeli yang mencari produk berkaitan keperluan harian";
+}
+
+function analyzeProduct(){
+ const url=$("url").value.trim();
+ const source=$("sourceText").value.trim();
+
+ if(url && !/^https?:\/\/\S+/i.test(url)){
+  alert("Pautan mesti bermula dengan https:// atau http://");
+  return;
+ }
+
+ const text=source || "";
+ if(!text && !url){
+  alert("Masukkan pautan atau butiran produk dahulu.");
+  return;
+ }
+
+ let name=$("product").value.trim();
+ let price=$("price").value.trim();
+ let features=$("features").value.trim();
+
+ if(text){
+  const lines=text.split(/\n+/).map(x=>x.trim()).filter(Boolean);
+  if(!name){
+   name=lines.find(x=>x.length>4 && !/RM\s?\d|https?:\/\//i.test(x)) || "";
+   if(name) $("product").value=name.slice(0,120);
+  }
+
+  if(!price){
+   const match=text.match(/(?:RM|MYR)\s?\d+(?:[,.]\d{1,2})?/i);
+   if(match) $("price").value=match[0];
+  }
+
+  if(!features){
+   features=lines.filter(x=>
+    x!==name && x.length>8 &&
+    !/RM\s?\d|https?:\/\//i.test(x)
+   ).slice(0,8).join(", ");
+   if(features) $("features").value=features;
+  }
+ }
+
+ const combined=[name,source,features].join(" ");
+ if(!$("audience").value.trim()){
+  $("audience").value=detectAudience(combined);
+ }
+
+ if(!name && !features){
+  $("analyzeInfo").textContent=translations[$("language").value].failed+
+   " Pautan sahaja belum memberikan maklumat yang boleh dibaca secara langsung.";
+  alert("Shopee mungkin menyekat pembacaan automatik. Tampal butiran produk dalam ruangan teks untuk analisis.");
+  return;
+ }
+
+ $("analyzeInfo").textContent=translations[$("language").value].analyzed+
+  " Harga yang tidak ditemui perlu dimasukkan secara manual.";
+ saveProduct();
+ alert(translations[$("language").value].analyzed);
+}
+
+const hooks={
+ "Hook Ringkas":[
+  "Sedang mencari {p}? Ini mungkin pilihan yang menarik untuk anda!",
+  "Kenali {p} yang mungkin sesuai dengan keperluan anda.",
+  "Jom lihat apa yang menarik tentang {p} ini!"
+ ],
+ "Hook Kejutan":[
+  "Tak sangka {p} mempunyai ciri seperti ini!",
+  "Sebelum membeli, cuba lihat {p} ini dahulu!",
+  "Ini antara produk yang wajar anda semak!"
+ ],
+ "Review Jujur":[
+  "Sedang mempertimbangkan {p}? Semak ciri dan harganya dahulu.",
+  "Ini maklumat {p} yang boleh membantu anda membuat pilihan.",
+  "Kenali kelebihan dan ciri {p} sebelum membeli."
+ ],
+ "Bercerita":[
+  "Kadang-kadang kita mencari produk yang boleh memudahkan urusan harian. Kenali {p} ini.",
+  "Saya tertarik untuk berkongsi maklumat tentang {p} ini.",
+  "Jika anda sedang mencari pilihan yang sesuai, lihat {p} ini."
+ ],
+ "POV":[
+  "POV: Anda sedang mencari {p} yang sesuai dengan keperluan sendiri.",
+  "POV: Terjumpa {p} ketika sedang survey produk.",
+  "POV: Nak beli produk baharu, tetapi semak dahulu {p} ini."
+ ],
+ "FOMO":[
+  "Jangan terlepas peluang untuk menyemak tawaran {p} ini!",
+  "Semak harga dan promosi semasa {p} sebelum membuat keputusan.",
+  "Sedang mencari {p}? Semak tawaran terkini sekarang."
+ ],
+ "Tips Edukasi":[
+  "Tips sebelum membeli {p}: semak ciri, harga dan kesesuaian.",
+  "Pilih {p} berdasarkan keperluan dan spesifikasi anda.",
+  "Jangan lupa bandingkan maklumat produk sebelum membeli."
+ ],
+ "Masalah-Penyelesaian":[
+  "Ada masalah mencari produk yang sesuai? Cuba semak {p} ini.",
+  "Jika anda memerlukan pilihan yang praktikal, kenali {p}.",
+  "Mencari penyelesaian untuk kegunaan harian? Lihat {p} ini."
+ ]
+};
+
+const dictionaries={
+ en:{
+  "Sedang mencari":"Looking for","Ini mungkin pilihan yang menarik untuk anda!":"This may be an interesting option for you!",
+  "Kenali":"Discover","yang mungkin sesuai dengan keperluan anda.":"that may suit your needs.",
+  "Jom lihat apa yang menarik tentang":"Take a look at what is interesting about",
+  "ini!":"!","Tak sangka":"You may be surprised by","Sebelum membeli, cuba lihat":"Before buying, take a look at",
+  "Sedang mempertimbangkan":"Considering","Semak ciri dan harganya dahulu.":"Check its features and price first.",
+  "Semak harga dan promosi semasa":"Check the current price and promotions for",
+  "sebelum membuat keputusan.":"before making a decision."
+ },
+ id:{
+  "Sedang mencari":"Sedang mencari","Ini mungkin pilihan yang menarik untuk anda!":"Ini mungkin pilihan menarik untuk Anda!",
+  "Kenali":"Kenali","yang mungkin sesuai dengan keperluan anda.":"yang mungkin sesuai dengan kebutuhan Anda.",
+  "Jom lihat apa yang menarik tentang":"Yuk lihat apa yang menarik dari",
+  "ini!":"ini!","Tak sangka":"Tidak disangka","Sebelum membeli, cuba lihat":"Sebelum membeli, lihat",
+  "Sedang mempertimbangkan":"Sedang mempertimbangkan","Semak ciri dan harganya dahulu.":"Periksa fitur dan harganya terlebih dahulu.",
+  "Semak harga dan promosi semasa":"Periksa harga dan promo terkini",
+  "sebelum membuat keputusan.":"sebelum memutuskan."
+ },
+ zh:{
+  "Sedang mencari":"正在寻找","Ini mungkin pilihan yang menarik untuk anda!":"这可能是一个值得考虑的选择！",
+  "Kenali":"了解","yang mungkin sesuai dengan keperluan anda.":"可能适合您的需求。",
+  "Jom lihat apa yang menarik tentang":"来看看有什么特别之处：",
+  "ini!":"！","Tak sangka":"令人惊喜的是","Sebelum membeli, cuba lihat":"购买前先看看",
+  "Sedang mempertimbangkan":"正在考虑","Semak ciri dan harganya dahulu.":"请先查看产品特点和价格。",
+  "Semak harga dan promosi semasa":"查看当前价格和促销信息",
+  "sebelum membuat keputusan.":"再做决定。"
+ },
+ th:{
+  "Sedang mencari":"กำลังมองหา","Ini mungkin pilihan yang menarik untuk anda!":"นี่อาจเป็นตัวเลือกที่น่าสนใจสำหรับคุณ!",
+  "Kenali":"ทำความรู้จัก","yang mungkin sesuai dengan keperluan anda.":"ที่อาจเหมาะกับความต้องการของคุณ",
+  "Jom lihat apa yang menarik tentang":"มาดูสิ่งที่น่าสนใจของ",
+  "ini!":"นี้!","Tak sangka":"ไม่น่าเชื่อว่า","Sebelum membeli, cuba lihat":"ก่อนซื้อ ลองดู",
+  "Sedang mempertimbangkan":"กำลังพิจารณา","Semak ciri dan harganya dahulu.":"ตรวจสอบคุณสมบัติและราคาก่อน",
+  "Semak harga dan promosi semasa":"ตรวจสอบราคาและโปรโมชั่นปัจจุบัน",
+  "sebelum membuat keputusan.":"ก่อนตัดสินใจ"
+ },
+ ar:{
+  "Sedang mencari":"هل تبحث عن","Ini mungkin pilihan yang menarik untuk anda!":"قد يكون هذا خياراً مثيراً للاهتمام!",
+  "Kenali":"اكتشف","yang mungkin sesuai dengan keperluan anda.":"الذي قد يناسب احتياجاتك",
+  "Jom lihat apa yang menarik tentang":"اكتشف ما يميز",
+  "ini!":"!","Tak sangka":"قد تتفاجأ من","Sebelum membeli, cuba lihat":"قبل الشراء، ألق نظرة على",
+  "Sedang mempertimbangkan":"هل تفكر في","Semak ciri dan harganya dahulu.":"تحقق من الميزات والسعر أولاً.",
+  "Semak harga dan promosi semasa":"تحقق من السعر والعروض الحالية",
+  "sebelum membuat keputusan.":"قبل اتخاذ القرار."
+ },
+ vi:{
+  "Sedang mencari":"Bạn đang tìm kiếm","Ini mungkin pilihan yang menarik untuk anda!":"Đây có thể là một lựa chọn thú vị!",
+  "Kenali":"Khám phá","yang mungkin sesuai dengan keperluan anda.":"có thể phù hợp với nhu cầu của bạn.",
+  "Jom lihat apa yang menarik tentang":"Hãy xem điều thú vị về",
+  "ini!":"này!","Tak sangka":"Thật bất ngờ","Sebelum membeli, cuba lihat":"Trước khi mua, hãy xem",
+  "Sedang mempertimbangkan":"Bạn đang cân nhắc","Semak ciri dan harganya dahulu.":"Hãy kiểm tra tính năng và giá trước.",
+  "Semak harga dan promosi semasa":"Kiểm tra giá và khuyến mãi hiện tại",
+  "sebelum membuat keputusan.":"trước khi quyết định."
+ }
+};
+
+function translateSimple(text,lang){
+ if(lang==="ms") return text;
+ const d=dictionaries[lang];
+ if(!d) return text;
+ let result=text;
+ Object.keys(d).sort((a,b)=>b.length-a.length).forEach(k=>{
+  result=result.split(k).join(d[k]);
+ });
+ return result;
+}
+
+function generate(){
+ const name=$("product").value.trim();
+ const price=$("price").value.trim();
+ const features=$("features").value.trim();
+ const audience=$("audience").value.trim();
+ const url=$("url").value.trim();
+ const style=$("style").value;
+ const count=Number($("count").value);
+ const lang=$("promoLanguage").value;
+
+ if(!name){
+  alert(translations[$("language").value].noProduct);
+  return;
+ }
+ if(url && !/^https?:\/\/\S+/i.test(url)){
+  alert("Pautan mesti bermula dengan http:// atau https://");
+  return;
+ }
+ if(!selectedPlatforms.length){
+  alert(translations[$("language").value].noPlatform);
+  return;
+ }
+
+ const list=hooks[style]||hooks["Hook Ringkas"];
+ let output=[];
+
+ selectedPlatforms.forEach(platform=>{
+  for(let i=0;i<count;i++){
+   let hook=list[i%list.length].replaceAll("{p}",name);
+   hook=translateSimple(hook,lang);
+
+   let text=platform+"\n\n"+hook+"\n\n";
+   text+=name+"\n";
+   if(price) text+="💰 "+price+"\n";
+   if(features) text+="✨ "+features+"\n";
+   if(audience) text+="🎯 "+audience+"\n";
+   text+="\nSemak maklumat dan harga terkini:\n";
+   text+=url||"Pautan produk belum dimasukkan.";
+   text+="\n\n#affiliate #reviewproduk #shopping";
+
+   output.push(text);
+  }
+ });
+
+ currentOutput=output.join("\n\n--------------------------\n\n");
+ renderResults();
+ saveHistory(name,currentOutput);
+}
+
+function renderResults(){
+ const area=$("results");
+ area.innerHTML="";
+ if(!currentOutput){
+  area.textContent=translations[$("language").value].emptyResult;
+  return;
+ }
+ currentOutput.split("\n\n--------------------------\n\n").forEach(part=>{
+  const box=document.createElement("div");
+  box.className="result";
+  const content=document.createElement("div");
+  content.textContent=part;
+  const button=document.createElement("button");
+  button.textContent="SALIN AYAT INI";
+  button.onclick=()=>copyText(part);
+  box.append(content,button);
+  area.appendChild(box);
+ });
+}
+
+function copyText(text){
+ const area=document.createElement("textarea");
+ area.value=text;
+ area.style.position="fixed";
+ area.style.opacity="0";
+ document.body.appendChild(area);
+ area.select();
+ try{
+  document.execCommand("copy");
+  alert(translations[$("language").value].copied);
+ }catch(e){
+  alert("Sila salin secara manual.");
+ }
+ document.body.removeChild(area);
+}
+
+function copyAll(){
+ if(!currentOutput){
+  alert(translations[$("language").value].noResult);
+  return;
+ }
+ copyText(currentOutput);
+}
+
+function clearResults(){
+ currentOutput="";
+ $("results").textContent=translations[$("language").value].emptyResult;
+}
+
+function getHistory(){
+ try{
+  return JSON.parse(localStorage.getItem("affiliateHistory23")||"[]");
+ }catch(e){return [];}
+}
+
+function saveHistory(product,output){
+ const history=getHistory();
+ history.unshift({
+  product,output,date:new Date().toLocaleString()
+ });
+ localStorage.setItem("affiliateHistory23",JSON.stringify(history.slice(0,30)));
+ renderHistory();
+ updateStats();
+}
+
+function renderHistory(){
+ const area=$("history");
+ const history=getHistory();
+ area.innerHTML="";
+ if(!history.length){
+  area.textContent=translations[$("language").value].empty;
+  return;
+ }
+ history.forEach(item=>{
+  const row=document.createElement("div");
+  row.className="history-item";
+  const info=document.createElement("div");
+  info.textContent=item.product+" · "+item.date;
+  const button=document.createElement("button");
+  button.className="secondary";
+  button.textContent="BUKA";
+  button.onclick=()=>{
+   currentOutput=item.output;
+   renderResults();
+   window.scrollTo(0,document.body.scrollHeight);
+  };
+  row.append(info,button);
+  area.appendChild(row);
+ });
+}
+
+function clearHistory(){
+ if(!confirm("Padam semua sejarah promosi?"))return;
+ localStorage.removeItem("affiliateHistory23");
+ renderHistory();
+ updateStats();
+}
+
+function saveProduct(){
+ const name=$("product").value.trim();
+ if(!name)return;
+ const list=getProducts();
+ const item={
+  name,
+  price:$("price").value.trim(),
+  features:$("features").value.trim(),
+  audience:$("audience").value.trim(),
+  url:$("url").value.trim()
+ };
+ const index=list.findIndex(x=>x.name===name);
+ if(index>=0)list[index]=item;
+ else list.unshift(item);
+ localStorage.setItem("affiliateProducts23",JSON.stringify(list.slice(0,100)));
+ updateStats();
+}
+
+function getProducts(){
+ try{return JSON.parse(localStorage.getItem("affiliateProducts23")||"[]");}
+ catch(e){return [];}
+}
+
+function updateStats(){
+ $("productCount").textContent=getProducts().length;
+ $("postCount").textContent=getHistory().length;
+}
+
+function init(){
+ const lang=localStorage.getItem("affiliateLanguage")||"ms";
+ $("language").value=lang;
+ changeLanguage();
+ $("promoLanguage").value=lang;
+ updateStats();
+ renderHistory();
+}
+
+init();
+</script>
+</body>
+</html>
